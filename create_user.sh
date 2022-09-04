@@ -8,3 +8,4 @@ create user hoang identified by foo;
 grant connect, resource, select any dictionary, unlimited tablespace to hoang;
 
 alter user hoang default tablespace users;
+ EOF
