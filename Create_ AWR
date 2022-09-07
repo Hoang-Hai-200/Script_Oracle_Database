@@ -1,0 +1,6 @@
+-- Create AWR
+SQL> @?/rdbms/admin/awrrpt.sql
+
+
+--Create Analysis Report SQL
+SQL> @?/rdbms/admin/awrsqrpt.sql
