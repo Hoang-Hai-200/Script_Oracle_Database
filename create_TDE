@@ -1,0 +1,24 @@
+
+1. Create directory to store key TDE (in /u01/app/oracle/admin/talentcdb)
+    /wallet
+
+2. Add Script to sqlnet.ora
+    ENCRYPTION_WALLET_LOCATION=
+     (SOURCE=
+      (METHOD=FILE)
+       (METHOD_DATA= (DIRECTORY=/u01/app/oracle/admin/talentcdb/wallet/)))
+
+3.sqlplus / as sysdba
+    sql> ADMINISTER KEY MANAGEMENT CREATE KEYSTORE 'keystore_location' IDENTIFIED BY software_keystore_password;
+    EX:
+    sql> ADMINISTER KEY MANAGEMENT CREATE KEYSTORE '/u01/app/oracle/admin/talentcdb/wallet/' IDENTIFIED BY myPassword;
+
+4.open keystore on container level
+    sql> ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY software_keystore_password [CONTAINER = ALL | CURRENT];
+    EX:
+    ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN IDENTIFIED BY myPassword CONTAINER = ALL;
+
+5. create master key
+    sql> ADMINISTER KEY MANAGEMENT SET KEY [USING TAG 'tag'] IDENTIFIED BY keystore_password [WITH BACKUP [USING 'backup_identifier']] [CONTAINER = ALL | CURRENT];
+    EX:
+    ADMINISTER KEY MANAGEMENT SET KEY IDENTIFIED BY myPassword WITH BACKUP;
