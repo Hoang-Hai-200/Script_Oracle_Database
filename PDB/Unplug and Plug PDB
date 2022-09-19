@@ -4,5 +4,14 @@
   
 2. CDB2
   1. [check compatibility]
+      DECLARE
+        compatible CONSTANT VARCHAR2(3) := CASE DBMS_PDB.CHECK_PLUG_COMPATIBILITY(pdb_descr_file => '/tmp/noncdb12c.xml',pdb_name => 'MYNONCDBASPDBNOW')
+                                                 WHEN TRUE THEN 'YES'
+                                                 ELSE 'NO'
+                                           END;
+        BEGIN
+          DBMS_OUTPUT.PUT_LINE(compatible);
+        END;
+        /
   2. create pluggable database pdb_new using '/tmp/pdb1.xml';
   
