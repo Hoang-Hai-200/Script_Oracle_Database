@@ -1,0 +1,20 @@
+IN nonCDB
+  1. Alter database open read only;
+  2. exec dbms_pdb.describer(pdb_descr_file => '/tmp/noncdb.xml');
+  3. shut immediate
+
+IN CDB
+  1. sys / as sysdba
+  2. [check compatibility]
+      DECLARE
+        compatible CONSTANT VARCHAR2(3) := CASE DBMS_PDB.CHECK_PLUG_COMPATIBILITY(pdb_descr_file => '/tmp/noncdb12c.xml',pdb_name => 'MYNONCDBASPDBNOW')
+                                                 WHEN TRUE THEN 'YES'
+                                                 ELSE 'NO'
+                                           END;
+        BEGIN
+          DBMS_OUTPUT.PUT_LINE(compatible);
+        END;
+        /
+  3. create pluggable database pdb_name using '/tmp/noncdb.xml';
+  4. alter session set container = pdb_name;
+  5. @$ORACLE_HOME/rdbms/admin/noncdb_to_pdb
