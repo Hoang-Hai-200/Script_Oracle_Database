@@ -1,0 +1,8 @@
+1. CDB1
+  1. alter pluggable database pdb1 close;
+  2. alter pluggable database pdb1 unplug into '/tmp/pdb1.xml';
+  
+2. CDB2
+  1. [check compatibility]
+  2. create pluggable database pdb_new using '/tmp/pdb1.xml';
+  
